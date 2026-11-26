@@ -3,19 +3,19 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 android {
-    namespace = "com.example.xpolaplayer"
+    namespace = "com.shahid.iptv"
     compileSdk = 35
     defaultConfig {
-        applicationId = "com.example.xpolaplayer"
+        applicationId = "com.shahid.iptv"
         minSdk = 23
-        targetSdk = 35
+        targetSdk = 28
         versionCode = 1
         versionName = "1.0"
     }
 }
 dependencies {
-    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.leanback:leanback:1.2.0")
     implementation("androidx.media3:media3-exoplayer:1.5.1")
     implementation("androidx.media3:media3-ui:1.5.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 }
