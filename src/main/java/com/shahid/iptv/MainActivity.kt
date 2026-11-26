@@ -18,7 +18,7 @@ class MainActivity : Activity() {
     private val bg = Color.rgb(9, 9, 9)
     private val red = Color.rgb(229, 9, 20)
     private val white = Color.WHITE
-    private var playlistUrl = ""
+    private var playlistUrl = "https://raw.githubusercontent.com/gubran2021/stream/refs/heads/master/ara.m3u"
     private var player: ExoPlayer? = null
     private lateinit var root: LinearLayout
 
