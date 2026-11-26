@@ -11,6 +11,7 @@ import android.widget.*
 import android.text.InputType
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.ui.PlayerView
 import java.net.URL
 
@@ -165,17 +166,26 @@ class MainActivity : Activity() {
     }
 
     private fun play(url: String) {
+        player?.release()
+        player = null
         setupRoot()
         root.addView(label("مشغل شاهد IPTV", 24f))
+        // Enable Media3 decoder extensions. FFmpeg is tried when the platform
+        // audio decoder cannot handle the selected audio format.
+        val renderersFactory = DefaultRenderersFactory(this)
+            .setExtensionRendererMode(DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON)
+
+        val exoPlayer = ExoPlayer.Builder(this, renderersFactory).build()
+        this.player = exoPlayer
+
         val view = PlayerView(this).apply {
             useController = true
-            player = ExoPlayer.Builder(this@MainActivity).build().also {
-                this.player = it
-                it.setMediaItem(MediaItem.fromUri(url))
-                it.prepare()
-                it.playWhenReady = true
-            }
+            this.player = exoPlayer
         }
+
+        exoPlayer.setMediaItem(MediaItem.fromUri(url))
+        exoPlayer.prepare()
+        exoPlayer.playWhenReady = true
         root.addView(view, LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f
         ))
